@@ -1,14 +1,18 @@
 import logging
 from abc import ABC, abstractmethod
 
+logger = None
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler()
-handler.setFormatter(
-    logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-)
-logger.addHandler(handler)
+
+def setup_logger(name):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setFormatter(
+        logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    )
+    logger.addHandler(handler)
+    return logger
 
 
 class Vehicle(ABC):
@@ -62,6 +66,9 @@ class EUVehicleFactory(VehicleFactory):
 
 
 def main():
+    global logger
+    logger = setup_logger("task1")
+
     us_factory = USVehicleFactory()
     us_factory.create_car("Ford", "Mustang").start_engine()
     us_factory.create_motorcycle("Harley-Davidson", "Sportster").start_engine()
