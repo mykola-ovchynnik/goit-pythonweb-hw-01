@@ -71,6 +71,5 @@ def main():
     eu_factory.create_motorcycle("Yamaha", "MT-07").start_engine()
 
 
-# Використання
 if __name__ == "__main__":
     main()
